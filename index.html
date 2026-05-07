@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalmHo — Herbal Nasal Inhaler</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --teal: #00C4B4;
+    --teal-dark: #00857A;
+    --teal-light: #B2F0EB;
+    --gold: #F5C842;
+    --gold-dark: #C89A10;
+    --peach: #FFDED0;
+    --dark: #1A1A1A;
+    --off-white: #FAFAF7;
+    --text-muted: #6B6B6B;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(250,250,247,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,196,180,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem; font-weight: 900;
+    color: var(--teal-dark);
+    letter-spacing: -1px;
+  }
+
+  .nav-logo span { color: var(--gold-dark); }
+
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.5px;
+    color: var(--dark); text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal-dark); }
+
+  .nav-cta {
+    background: var(--teal-dark); color: #fff;
+    padding: 0.6rem 1.4rem; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--teal); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+    gap: 3rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -10%; right: -5%;
+    width: 55%; height: 110%;
+    background: radial-gradient(ellipse at 60% 40%, #F5C84240 0%, #00C4B430 40%, transparent 70%);
+    z-index: 0;
+  }
+
+  .hero-bg-circles {
+    position: absolute; top: 0; right: 0; width: 60%; height: 100%;
+    z-index: 0; overflow: hidden;
+  }
+
+  .hero-bg-circles::before {
+    content: '';
+    position: absolute; top: 50%; right: 5%; transform: translateY(-50%);
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #F5C84220, #00C4B425, #FFDED035, #F5C84220);
+    animation: spin-slow 18s linear infinite;
+  }
+
+  @keyframes spin-slow { to { transform: translateY(-50%) rotate(360deg); } }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--teal-light); color: var(--teal-dark);
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    padding: 0.4rem 1rem; border-radius: 50px;
+    margin-bottom: 1.5rem;
+    animation: fadeSlideUp 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '✦'; font-size: 0.7rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.05;
+    color: var(--dark);
+    margin-bottom: 1.2rem;
+    animation: fadeSlideUp 0.7s 0.1s ease both;
+  }
+
+  h1 em { color: var(--teal-dark); font-style: italic; }
+
+  .hero-sub {
+    font-size: 1.1rem; line-height: 1.7; color: var(--text-muted);
+    max-width: 460px; margin-bottom: 2.2rem;
+    animation: fadeSlideUp 0.7s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeSlideUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--teal-dark); color: #fff;
+    padding: 0.85rem 2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,133,122,0.3); }
+
+  .btn-outline {
+    background: transparent; color: var(--dark);
+    padding: 0.85rem 2rem; border-radius: 50px; border: 1.5px solid var(--dark);
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--teal-dark); color: var(--teal-dark); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 2.5rem;
+    animation: fadeSlideUp 0.7s 0.4s ease both;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: var(--teal-dark);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    animation: fadeSlideUp 0.8s 0.2s ease both;
+  }
+
+  .product-showcase {
+    position: relative;
+    width: 420px; height: 460px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,196,180,0.25);
+    animation: spin-slow 20s linear infinite;
+  }
+  .orbit-ring:nth-child(1) { width: 380px; height: 380px; animation-duration: 25s; }
+  .orbit-ring:nth-child(2) { width: 300px; height: 300px; animation-duration: 18s; animation-direction: reverse; }
+
+  .inhaler-3d {
+    width: 130px; height: 200px;
+    background: linear-gradient(145deg, #00D4C4, #00A89A, #007A72);
+    border-radius: 28px 28px 22px 22px;
+    position: relative;
+    box-shadow: 8px 16px 40px rgba(0,133,122,0.4), -4px -4px 20px rgba(255,255,255,0.5);
+    animation: float 4s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .inhaler-3d:hover { transform: scale(1.06) rotate(-2deg); }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .inhaler-nozzles {
+    position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 14px;
+  }
+
+  .nozzle {
+    width: 22px; height: 34px;
+    background: linear-gradient(180deg, #2A2A2A, #111);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .inhaler-brand {
+    position: absolute; top: 40%;
+    width: 100%; text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 900;
+    color: rgba(0,0,0,0.7);
+    letter-spacing: -0.5px;
+  }
+
+  .inhaler-variant {
+    position: absolute; bottom: 22px;
+    width: 100%; text-align: center;
+    font-size: 0.78rem; font-weight: 700;
+    color: rgba(0,0,0,0.55);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  .sniff-badge {
+    position: absolute; top: -18px; right: -30px;
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 900; color: var(--dark);
+    line-height: 1.1;
+    box-shadow: 0 4px 16px rgba(245,200,66,0.5);
+  }
+  .sniff-badge span { font-size: 0.55rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+  .herb-float {
+    position: absolute;
+    font-size: 1.8rem;
+    animation: floatHerb 5s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+  }
+  .herb-float:nth-child(1) { top: 15%; left: 2%; animation-delay: 0s; }
+  .herb-float:nth-child(2) { top: 65%; left: 5%; animation-delay: 1.2s; }
+  .herb-float:nth-child(3) { top: 10%; right: 0%; animation-delay: 0.8s; }
+  .herb-float:nth-child(4) { bottom: 12%; right: 3%; animation-delay: 2s; }
+
+  @keyframes floatHerb {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(8deg); }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--teal-dark); color: #fff;
+    padding: 0.9rem 0; overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    padding: 0 2.5rem;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; white-space: nowrap;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .marquee-item::after { content: '✦'; color: var(--gold); }
+
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 5%; }
+
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal-dark);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--dark); margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1.05rem; color: var(--text-muted);
+    line-height: 1.7; max-width: 520px;
+  }
+
+  /* BENEFITS */
+  .benefits-section { background: #fff; }
+
+  .benefits-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+
+  .benefit-card {
+    background: var(--off-white);
+    border: 1px solid rgba(0,196,180,0.15);
+    border-radius: 20px; padding: 2rem 1.8rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,133,122,0.12);
+  }
+
+  .benefit-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+
+  .benefit-icon {
+    width: 52px; height: 52px;
+    background: var(--teal-light);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.2rem;
+  }
+
+  .benefit-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 0.6rem; color: var(--dark);
+  }
+
+  .benefit-card p {
+    font-size: 0.9rem; line-height: 1.65; color: var(--text-muted);
+  }
+
+  /* FLAVORS / PRODUCTS */
+  .flavors-section {
+    background: linear-gradient(135deg, #00857A08 0%, #F5C84208 50%, #FFDED020 100%);
+  }
+
+  .flavors-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem;
+  }
+
+  .flavors-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .flavor-card {
+    background: #fff; border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.07);
+    transition: transform 0.35s, box-shadow 0.35s;
+    cursor: pointer;
+  }
+  .flavor-card:hover {
+    transform: translateY(-10px) rotate(-0.5deg);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+  }
+
+  .flavor-visual {
+    height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .flavor-visual.og { background: linear-gradient(145deg, #B2F0EB, #00C4B430); }
+  .flavor-visual.herbal { background: linear-gradient(145deg, #D4F7D0, #4CAF5030); }
+  .flavor-visual.secret { background: linear-gradient(145deg, #F5C84230, #FF9A3C20); }
+
+  .flavor-inhaler {
+    width: 80px; height: 130px;
+    border-radius: 18px 18px 14px 14px;
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+    box-shadow: 6px 12px 28px rgba(0,0,0,0.18);
+  }
+
+  .flavor-inhaler.og { background: linear-gradient(145deg, #00D4C4, #007A72); }
+  .flavor-inhaler.herbal { background: linear-gradient(145deg, #6BCB77, #2E7D32); }
+  .flavor-inhaler.secret { background: linear-gradient(145deg, #F5C842, #E88C1A); }
+
+  .flavor-nozzles {
+    position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px;
+  }
+  .flavor-nozzle {
+    width: 14px; height: 22px;
+    background: linear-gradient(180deg, #2A2A2A, #111);
+    border-radius: 5px 5px 0 0;
+  }
+
+  .flavor-label {
+    position: absolute; bottom: 8px;
+    width: 100%; text-align: center;
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(0,0,0,0.5);
+  }
+
+  .flavor-emoji {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 1.6rem; opacity: 0.7;
+  }
+
+  .flavor-info { padding: 1.5rem; }
+
+  .flavor-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--dark); margin-bottom: 0.3rem;
+  }
+
+  .flavor-desc {
+    font-size: 0.88rem; color: var(--text-muted);
+    line-height: 1.6; margin-bottom: 1.2rem;
+  }
+
+  .flavor-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+
+  .tag {
+    font-size: 0.72rem; font-weight: 600;
+    padding: 0.28rem 0.7rem; border-radius: 50px;
+    background: var(--teal-light); color: var(--teal-dark);
+    letter-spacing: 0.3px;
+  }
+
+  .flavor-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(0,0,0,0.07); padding-top: 1.2rem;
+  }
+
+  .flavor-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--teal-dark);
+  }
+
+  .flavor-price small { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); margin-left: 4px; }
+
+  .btn-buy {
+    background: var(--dark); color: #fff;
+    padding: 0.65rem 1.4rem; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 600; border: none;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-buy:hover { background: var(--teal-dark); transform: scale(1.05); }
+
+  /* HOW IT WORKS */
+  .how-section { background: var(--dark); color: #fff; }
+  .how-section .section-title { color: #fff; }
+  .how-section .section-label { color: var(--teal); }
+  .how-section .section-sub { color: rgba(255,255,255,0.6); }
+
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; margin-top: 4rem;
+    position: relative;
+  }
+
+  .steps-grid::before {
+    content: '';
+    position: absolute; top: 32px; left: 12.5%; right: 12.5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--gold), var(--teal));
+    z-index: 0;
+  }
+
+  .step-card {
+    text-align: center; padding: 0 1rem;
+    position: relative; z-index: 1;
+  }
+
+  .step-num {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--teal-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900; color: #fff;
+    margin: 0 auto 1.2rem;
+    border: 3px solid var(--dark);
+    box-shadow: 0 0 0 3px var(--teal);
+  }
+
+  .step-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+
+  .step-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: #fff; margin-bottom: 0.5rem;
+  }
+  .step-card p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* INGREDIENTS */
+  .ingredients-section { background: #fff; }
+
+  .ingredients-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center; margin-top: 3rem;
+  }
+
+  .ingredient-list { display: flex; flex-direction: column; gap: 1rem; }
+
+  .ingredient-item {
+    display: flex; align-items: flex-start; gap: 1.2rem;
+    padding: 1.2rem 1.4rem;
+    background: var(--off-white); border-radius: 16px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .ingredient-item:hover { border-color: var(--teal-light); transform: translateX(6px); }
+
+  .ingredient-emoji { font-size: 1.8rem; flex-shrink: 0; }
+
+  .ingredient-item h4 {
+    font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 0.2rem;
+  }
+  .ingredient-item p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; }
+
+  .ingredients-visual {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .ing-card {
+    background: linear-gradient(135deg, var(--teal-light), #fff);
+    border-radius: 20px; padding: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(0,196,180,0.2);
+    transition: transform 0.25s;
+  }
+  .ing-card:hover { transform: scale(1.04); }
+  .ing-card .ing-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+  .ing-card span { font-size: 0.8rem; font-weight: 600; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 1px; }
+
+  .ing-card.large {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #F5C84220, var(--teal-light));
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-section {
+    background: linear-gradient(180deg, var(--off-white) 0%, #fff 100%);
+  }
+
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+
+  .review-card {
+    background: #fff; border-radius: 20px; padding: 1.8rem;
+    border: 1px solid rgba(0,0,0,0.07);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .review-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
+
+  .review-card::after {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem; line-height: 1;
+    position: absolute; top: -1rem; right: 1rem;
+    color: var(--teal-light); z-index: 0; pointer-events: none;
+  }
+
+  .stars { color: var(--gold-dark); font-size: 0.9rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
+
+  .review-text {
+    font-size: 0.92rem; line-height: 1.7; color: var(--dark);
+    position: relative; z-index: 1; margin-bottom: 1.2rem;
+  }
+
+  .reviewer {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+
+  .reviewer-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+
+  .reviewer-name { font-size: 0.9rem; font-weight: 600; color: var(--dark); }
+  .reviewer-meta { font-size: 0.77rem; color: var(--text-muted); }
+
+  /* CTA BANNER */
+  .cta-section {
+    background: var(--teal-dark); color: #fff;
+    text-align: center; padding: 5rem 5%;
+    position: relative; overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute; top: -50%; left: -10%;
+    width: 60%; height: 200%;
+    background: radial-gradient(ellipse, rgba(245,200,66,0.15) 0%, transparent 60%);
+  }
+
+  .cta-section .section-title { color: #fff; }
+  .cta-section .section-sub { color: rgba(255,255,255,0.7); margin: 0 auto 2.5rem; }
+
+  .cta-section .btn-primary { background: var(--gold); color: var(--dark); }
+  .cta-section .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  .cta-price-note {
+    font-size: 0.85rem; color: rgba(255,255,255,0.55);
+    margin-top: 1.2rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: #fff;
+    padding: 3.5rem 5% 2rem;
+  }
+
+  .footer-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900; color: var(--teal);
+    margin-bottom: 0.8rem;
+  }
+  .footer-brand-desc { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  .footer-col h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { font-size: 0.88rem; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--teal); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: rgba(255,255,255,0.35);
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* STICKY CTA */
+  .sticky-bar {
+    position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    background: var(--dark); color: #fff;
+    padding: 0.85rem 2rem; border-radius: 50px;
+    display: flex; align-items: center; gap: 1.2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    z-index: 200;
+    animation: slideUp 0.5s 1s ease both;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateX(-50%) translateY(80px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+  }
+
+  .sticky-bar span { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.75); }
+  .sticky-bar strong { font-size: 1.1rem; color: var(--gold); font-family: 'Playfair Display', serif; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; text-align: center; padding-top: 7rem; }
+    .hero-sub { margin: 0 auto 2rem; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-visual { display: none; }
+    .benefits-grid, .flavors-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .ingredients-layout { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .sticky-bar { width: 90%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Calm<span>Ho</span></div>
+  <ul class="nav-links">
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#flavors">Shop</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#flavors" class="nav-cta">Shop Now — ₹200</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">100% Natural & Ayurvedic</div>
+    <h1>Breathe Calm.<br><em>Instantly.</em></h1>
+    <p class="hero-sub">CalmHo is India's favourite herbal nasal inhaler — crafted with ancient Ayurvedic wisdom for modern-day stress, congestion & mental clarity. One sniff, all the calm.</p>
+    <div class="hero-actions">
+      <a href="#flavors" class="btn-primary">Shop All Flavours →</a>
+      <a href="#how" class="btn-outline">How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">800+</div>
+        <div class="stat-label">Sniffs per pack</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Unique blends</div>
+      </div>
+      <div>
+        <div class="stat-num">₹200</div>
+        <div class="stat-label">Only per pack</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="product-showcase">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <span class="herb-float">🌿</span>
+      <span class="herb-float">🌸</span>
+      <span class="herb-float">🍃</span>
+      <span class="herb-float">✨</span>
+      <div class="inhaler-3d">
+        <div class="inhaler-nozzles">
+          <div class="nozzle"></div>
+          <div class="nozzle"></div>
+        </div>
+        <div class="sniff-badge">800<span>sniffs</span></div>
+        <div class="inhaler-brand">CalmHo</div>
+        <div class="inhaler-variant">The OG</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">100% Natural</span>
+    <span class="marquee-item">Ayurvedic Formula</span>
+    <span class="marquee-item">800 Sniffs</span>
+    <span class="marquee-item">Instant Calm</span>
+    <span class="marquee-item">No Side Effects</span>
+    <span class="marquee-item">3 Unique Blends</span>
+    <span class="marquee-item">Made In India</span>
+    <span class="marquee-item">100% Natural</span>
+    <span class="marquee-item">Ayurvedic Formula</span>
+    <span class="marquee-item">800 Sniffs</span>
+    <span class="marquee-item">Instant Calm</span>
+    <span class="marquee-item">No Side Effects</span>
+    <span class="marquee-item">3 Unique Blends</span>
+    <span class="marquee-item">Made In India</span>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits-section" id="benefits">
+  <div class="reveal">
+    <div class="section-label">Why CalmHo</div>
+    <h2 class="section-title">Your pocket-sized<br>wellness ritual.</h2>
+    <p class="section-sub">No pills. No side effects. Just the pure power of herbs — anytime, anywhere.</p>
+  </div>
+
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">😮‍💨</div>
+      <h3>Instant Stress Relief</h3>
+      <p>Aromatherapy-grade essential oils activate your body's natural calm response within seconds of inhaling. Feel the tension melt away.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">🫁</div>
+      <h3>Clears Nasal Congestion</h3>
+      <p>Menthol and eucalyptus work together to open blocked airways and ease breathing — great for seasonal allergies and travel fatigue.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">🧠</div>
+      <h3>Mental Clarity & Focus</h3>
+      <p>Rosemary and clove stimulate cognitive function, sharpen your focus and help you cut through brain fog during work or study.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">😴</div>
+      <h3>Better Sleep Quality</h3>
+      <p>Our herbal blends calm an overactive mind before bedtime — without melatonin or sedatives. Just breathe and drift off naturally.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">🌿</div>
+      <h3>Zero Chemicals</h3>
+      <p>Every CalmHo variant is 100% natural and Ayurvedic — no synthetic fragrances, no parabens, no addictive compounds. Ever.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">👜</div>
+      <h3>Pocket-Sized & Discreet</h3>
+      <p>Slim dual-nozzle design fits your pocket, bag, or desk. Use it in the office, on a flight, at a party — no one will even notice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="flavors-section" id="flavors">
+  <div class="flavors-header reveal">
+    <div>
+      <div class="section-label">Our Blends</div>
+      <h2 class="section-title">Choose your calm.</h2>
+    </div>
+    <p class="section-sub">Three distinct herbal blends. Each handcrafted for a different mood and moment. All just ₹200.</p>
+  </div>
+
+  <div class="flavors-grid">
+
+    <!-- OG -->
+    <div class="flavor-card reveal">
+      <div class="flavor-visual og">
+        <span class="flavor-emoji">🌿</span>
+        <div class="flavor-inhaler og">
+          <div class="flavor-nozzles">
+            <div class="flavor-nozzle"></div>
+            <div class="flavor-nozzle"></div>
+          </div>
+          <div class="flavor-label">The OG</div>
+        </div>
+      </div>
+      <div class="flavor-info">
+        <div class="flavor-name">The OG</div>
+        <p class="flavor-desc">The original blend that started it all. A balanced medley of mint, camphor and clove — the classic Ayurvedic inhaler, reimagined for modern life.</p>
+        <div class="flavor-tags">
+          <span class="tag">Peppermint</span>
+          <span class="tag">Camphor</span>
+          <span class="tag">Clove</span>
+          <span class="tag">Cinnamon</span>
+        </div>
+        <div class="flavor-footer">
+          <div class="flavor-price">₹200 <small>/ pack</small></div>
+          <button class="btn-buy">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERBAL -->
+    <div class="flavor-card reveal">
+      <div class="flavor-visual herbal">
+        <span class="flavor-emoji">🍵</span>
+        <div class="flavor-inhaler herbal">
+          <div class="flavor-nozzles">
+            <div class="flavor-nozzle"></div>
+            <div class="flavor-nozzle"></div>
+          </div>
+          <div class="flavor-label">Herbal</div>
+        </div>
+      </div>
+      <div class="flavor-info">
+        <div class="flavor-name">Herbal</div>
+        <p class="flavor-desc">Deep forest energy meets Himalayan calm. Rosemary, basil and eucalyptus for those who crave pure, green-earth aromatherapy in a sniff.</p>
+        <div class="flavor-tags">
+          <span class="tag">Rosemary</span>
+          <span class="tag">Eucalyptus</span>
+          <span class="tag">Basil</span>
+          <span class="tag">Sandalwood</span>
+        </div>
+        <div class="flavor-footer">
+          <div class="flavor-price">₹200 <small>/ pack</small></div>
+          <button class="btn-buy">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECRET -->
+    <div class="flavor-card reveal">
+      <div class="flavor-visual secret">
+        <span class="flavor-emoji">🔮</span>
+        <div class="flavor-inhaler secret">
+          <div class="flavor-nozzles">
+            <div class="flavor-nozzle"></div>
+            <div class="flavor-nozzle"></div>
+          </div>
+          <div class="flavor-label">Secret</div>
+        </div>
+      </div>
+      <div class="flavor-info">
+        <div class="flavor-name">Secret</div>
+        <p class="flavor-desc">Our most mysterious and warming blend — a closely guarded formula of rare spices and floral herbs that relaxes the mind while awakening the senses.</p>
+        <div class="flavor-tags">
+          <span class="tag">Jasmine</span>
+          <span class="tag">Cardamom</span>
+          <span class="tag">Vetiver</span>
+          <span class="tag">Saffron</span>
+        </div>
+        <div class="flavor-footer">
+          <div class="flavor-price">₹200 <small>/ pack</small></div>
+          <button class="btn-buy">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="reveal">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">Ridiculously simple.</h2>
+    <p class="section-sub">No setup, no mess, no prescription needed. CalmHo works in four easy steps.</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">1</div>
+      <div class="step-icon">📦</div>
+      <h3>Unbox & Uncap</h3>
+      <p>Remove the protective caps from both nozzles. Your twin inhaler is ready to go.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">2</div>
+      <div class="step-icon">👃</div>
+      <h3>Place at Nostrils</h3>
+      <p>Hold CalmHo comfortably against both nostrils — the dual nozzle design covers both simultaneously.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">3</div>
+      <div class="step-icon">🌬️</div>
+      <h3>Inhale Slowly</h3>
+      <p>Breathe in gently and deeply through your nose for 3–5 seconds. Let the herbs do their magic.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">4</div>
+      <div class="step-icon">😌</div>
+      <h3>Feel the Calm</h3>
+      <p>Experience instant clarity, freshness, and calm. Repeat as needed — 800 sniffs means it lasts for months.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTS -->
+<section class="ingredients-section" id="ingredients">
+  <div class="ingredients-layout">
+    <div class="reveal">
+      <div class="section-label">What's Inside</div>
+      <h2 class="section-title">Nature's finest,<br>inside every sniff.</h2>
+      <p class="section-sub" style="margin-bottom: 2rem;">Only the purest plant extracts and Ayurvedic botanicals — sourced responsibly, blended with care.</p>
+
+      <div class="ingredient-list">
+        <div class="ingredient-item">
+          <span class="ingredient-emoji">🌱</span>
+          <div>
+            <h4>Peppermint Extract</h4>
+            <p>Cools airways, relieves headaches, and provides that signature fresh-air clarity.</p>
+          </div>
+        </div>
+        <div class="ingredient-item">
+          <span class="ingredient-emoji">🌸</span>
+          <div>
+            <h4>Camphor (Kapoor)</h4>
+            <p>Traditional Ayurvedic decongestant that clears congestion and calms the nervous system.</p>
+          </div>
+        </div>
+        <div class="ingredient-item">
+          <span class="ingredient-emoji">🌿</span>
+          <div>
+            <h4>Rosemary Oil</h4>
+            <p>Stimulates cognition and memory — the brain's favourite herb for focus and productivity.</p>
+          </div>
+        </div>
+        <div class="ingredient-item">
+          <span class="ingredient-emoji">🪵</span>
+          <div>
+            <h4>Clove & Cinnamon</h4>
+            <p>Warming, grounding spices that reduce anxiety and promote a sense of well-being.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ingredients-visual reveal">
+      <div class="ing-card large">
+        <span class="ing-emoji">🌿</span>
+        <span>Peppermint</span>
+      </div>
+      <div class="ing-card">
+        <span class="ing-emoji">🌸</span>
+        <span>Camphor</span>
+      </div>
+      <div class="ing-card">
+        <span class="ing-emoji">🌱</span>
+        <span>Rosemary</span>
+      </div>
+      <div class="ing-card">
+        <span class="ing-emoji">🪵</span>
+        <span>Clove</span>
+      </div>
+      <div class="ing-card">
+        <span class="ing-emoji">🌾</span>
+        <span>Sandalwood</span>
+      </div>
+      <div class="ing-card">
+        <span class="ing-emoji">💎</span>
+        <span>Camphor Crystal</span>
+      </div>
+      <div class="ing-card">
+        <span class="ing-emoji">🌺</span>
+        <span>Jasmine</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="reviews">
+  <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto 3.5rem;">
+    <div class="section-label">Real People, Real Calm</div>
+    <h2 class="section-title">People are breathing easier.</h2>
+  </div>
+
+  <div class="testimonials-grid">
+
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">I carry CalmHo in my bag everywhere. Whenever I feel anxious at work or stuck in traffic, two quick sniffs and I'm back to earth. Absolute game changer for my anxiety.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #00857A;">PR</div>
+        <div>
+          <div class="reviewer-name">Priya Rajan</div>
+          <div class="reviewer-meta">Marketing Manager, Bengaluru · The OG</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">As a doctor, I was sceptical about herbal inhalers. But CalmHo actually has science-backed ingredients. I now recommend it to patients dealing with mild stress and congestion.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #E88C1A;">DS</div>
+        <div>
+          <div class="reviewer-name">Dr. Sameer Nair</div>
+          <div class="reviewer-meta">Physician, Mumbai · Herbal Blend</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">I bought the Secret flavour on a whim and I'm obsessed. The jasmine and cardamom blend smells unreal. It's now part of my evening wind-down ritual every single day.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #9C27B0;">AM</div>
+        <div>
+          <div class="reviewer-name">Aditi Mehra</div>
+          <div class="reviewer-meta">Yoga Instructor, Pune · Secret</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Travelling 15+ days a month means my sinuses are constantly suffering. CalmHo has genuinely changed flying for me. No more stuffed nose at 35,000 feet!</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #1565C0;">RK</div>
+        <div>
+          <div class="reviewer-name">Rahul Krishnamurthy</div>
+          <div class="reviewer-meta">Business Consultant, Delhi · The OG</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">My mom gifted me this during my CA exams and honestly it kept me sane through 18-hour study sessions. The focus and calm it provides is unlike anything I've tried before.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #2E7D32;">SP</div>
+        <div>
+          <div class="reviewer-name">Sneha Pillai</div>
+          <div class="reviewer-meta">CA Student, Chennai · Herbal Blend</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">I gifted a pack to my entire team and everyone loved it. One colleague said it's the best Rs.200 she ever spent. We bulk-ordered 20 packs last week. Absolutely brilliant product.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: #BF360C;">VT</div>
+        <div>
+          <div class="reviewer-name">Vikram Thapar</div>
+          <div class="reviewer-meta">Startup Founder, Hyderabad · All 3</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <div class="section-label" style="color: var(--gold);">Start Your Journey</div>
+    <h2 class="section-title">Ready to CalmHo?</h2>
+    <p class="section-sub">Join thousands of Indians who've made CalmHo their daily wellness ritual. 100% natural. Zero side effects. Pure bliss.</p>
+    <a href="#flavors" class="btn-primary">Shop All 3 Flavours</a>
+    <p class="cta-price-note">Starting at just ₹200 per pack · 800 sniffs · Free delivery above ₹399</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">CalmHo</div>
+      <p class="footer-brand-desc">India's favourite herbal nasal inhaler. Crafted with 100% Ayurvedic ingredients for modern-day wellness.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">The OG</a></li>
+        <li><a href="#">Herbal</a></li>
+        <li><a href="#">Secret</a></li>
+        <li><a href="#">All 3 Bundle</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Ingredients</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Track Order</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CalmHo. All rights reserved.</span>
+    <span>Made with 🌿 in India · Ayurvedic · 100% Natural</span>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <span>All 3 blends available for</span>
+  <strong>₹200 each</strong>
+  <a href="#flavors" class="btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.82rem;">Shop Now</a>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.btn-buy').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const orig = this.textContent;
+      this.textContent = '✓ Added!';
+      this.style.background = '#00857A';
+      setTimeout(() => {
+        this.textContent = orig;
+        this.style.background = '';
+      }, 1800);
+    });
+  });
+
+  const stickyBar = document.querySelector('.sticky-bar');
+  window.addEventListener('scroll', () => {
+    stickyBar.style.opacity = window.scrollY > 300 ? '1' : '0';
+    stickyBar.style.pointerEvents = window.scrollY > 300 ? 'all' : 'none';
+  });
+</script>
+
+</body>
+</html>
